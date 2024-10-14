@@ -4,20 +4,11 @@ var step           = 1/fps;                   // how long is each frame (in seco
 var width          = 1024;                    // logical canvas width
 var height         = 768;                     // logical canvas height
 var centrifugal    = 0.3;                     // centrifugal force multiplier when going around curves
-//var offRoadDecel   = 0.99;                    // speed multiplier when off road (e.g. you lose 2% speed each update frame)
-//var skySpeed       = 0.001;                   // background sky layer scroll speed when going around curve (or up hill)
-//var hillSpeed      = 0.002;                   // background hill layer scroll speed when going around curve (or up hill)
-//var treeSpeed      = 0.003;                   // background tree layer scroll speed when going around curve (or up hill)
-//var skyOffset      = 0;                       // current sky scroll offset
-//var hillOffset     = 0;                       // current hill scroll offset
-//var treeOffset     = 0;                       // current tree scroll offset
-//var segments       = [];                      // array of road Road.segments
-//var cars           = [];                      // array of cars on the road
+
 var stats          = Game.stats('fps');       // mr.doobs FPS counter
 var canvas         = Dom.get('canvas');       // our canvas...
 var ctx            = canvas.getContext('2d'); // ...and its drawing context
-//var background     = null;                    // our background image (loaded below)
-//var sprites        = null;                    // our spritesheet (loaded below)
+
 var resolution     = null;                    // scaling factor to provide resolution independence (computed)
 var roadWidth      = 2000;                    // actually half the roads width, easier math if the road spans from -roadWidth to +roadWidth
 var segmentLength  = 200;                     // length of a single segment
@@ -28,18 +19,11 @@ var fieldOfView    = 100;                     // angle (degrees) for field of vi
 var cameraHeight   = 1000;                    // z height of camera
 var cameraDepth    = null;                    // z distance camera is from screen (computed)
 var drawDistance   = 300;                     // number of Road.segments to draw
-//var Player.x        = 0;                       // player x offset from center of road (-1 to 1 to stay independent of roadWidth)
-//var Player.z        = null;                    // player relative z distance from camera (computed)
+
 var fogDensity     = 5;                       // exponential fog density
-//var position       = 0;                       // current camera Z Camera.position (add Player.z to get player's absolute Z Camera.position)
-//var speed          = 0;                       // current speed
+
 var maxSpeed       = segmentLength/step;      // top speed (ensure we can't move more than 1 segment in a single frame to make collision detection easier)
-//var accel          =  maxSpeed/5;             
-//var breaking       = -maxSpeed;               
-//var decel          = -maxSpeed/5;             // 'natural' deceleration rate when neither accelerating, nor braking
-//var offRoadDecel   = -maxSpeed/2;             // off road deceleration is somewhere in between
-//var offRoadLimit   =  maxSpeed/4;             
-//var totalCars      = 200;                     // total number of cars on the road
+
 var currentLapTime = 0;                       // current lap time
 var lastLapTime    = null;                    // last lap time
 
