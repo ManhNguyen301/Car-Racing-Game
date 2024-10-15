@@ -45,7 +45,7 @@ var hud = {
 
 function update(dt) {
 
-    var n, car, carW, sprite, spriteW;
+    var sprite, spriteW;
     var playerSegment = Road.findSegment(Camera.position+Player.z);
     var playerW       = SPRITES.PLAYER_STRAIGHT.w * SPRITES.SCALE;
     var speedPercent  = Player.speed/maxSpeed;
@@ -127,7 +127,7 @@ function render() {
     // render background
     Background.render(playerY);
 
-    var n, i, segment, car, sprite, spriteScale, spriteX, spriteY;
+    var n, segment;
 
     // render Road
     Road.render(playerY,baseSegment,basePercent);
