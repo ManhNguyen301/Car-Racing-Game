@@ -27,6 +27,10 @@ var maxSpeed       = segmentLength/step;      // top speed (ensure we can't move
 var currentLapTime = 0;                       // current lap time
 var lastLapTime    = null;                    // last lap time
 
+
+var displaySetting = false;
+var displayInstruction = false;
+
 var keyLeft        = false;
 var keyRight       = false;
 var keyFaster      = false;
@@ -64,7 +68,7 @@ function update(dt) {
     //update background 
     Background.update(playerSegment, Camera.position, startPosition);
     
-    
+    Minimap.update();
     // update HUD
     if (Camera.position > Player.z) {
         if (currentLapTime && (startPosition < Player.z)) {
@@ -196,6 +200,40 @@ function reset(options) {
 //=========================================================================
 // TWEAK UI HANDLERS
 //=========================================================================
+
+Dom.on('fullscreen','click', function(){
+    var racer = Dom.get("racer");
+    if (racer.requestFullscreen) {
+        racer.requestFullscreen();
+    } else if (racer.mozRequestFullScreen) { // Firefox
+        racer.mozRequestFullScreen();
+    } else if (racer.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        racer.webkitRequestFullscreen();
+    } else if (racer.msRequestFullscreen) { // IE/Edge
+        racer.msRequestFullscreen();
+    }
+}); 
+
+Dom.on('setting','click', function(){
+    displaySetting = !displaySetting;
+    
+    if (displaySetting){
+        Dom.get("controls").style.visibility = 'visible';
+    }
+    else{
+        Dom.get("controls").style.visibility = 'hidden';
+    }
+})
+
+Dom.on('guide','click', function(){
+    displayInstruction = !displayInstruction;
+    if (displayInstruction){
+        Dom.get("instructions").style.visibility = 'visible';
+    }
+    else{
+        Dom.get("instructions").style.visibility = 'hidden';
+    }
+})
 
 Dom.on('resolution', 'change', function(ev) {
     var w, h, ratio;

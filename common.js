@@ -115,7 +115,9 @@ var Game = {  // a modified version of the game loop from my previous boulderdas
           now    = null,
           last   = Util.timestamp(),
           dt     = 0,
-          gdt    = 0;
+          gdt    = 0,
+          paused = false,
+          animationFrameId;
 
       function frame() {
         now = Util.timestamp();
@@ -128,12 +130,20 @@ var Game = {  // a modified version of the game loop from my previous boulderdas
         render();
         stats.update();
         last = now;
-        requestAnimationFrame(frame, canvas);
+        animationFrameId = requestAnimationFrame(frame, canvas);
       }
       
       frame(); // lets get this party started
-      
       Game.playMusic();
+      Dom.on("canvas", "click", function(){
+        paused = !paused;
+        if (paused){
+          cancelAnimationFrame(animationFrameId);
+        }
+        else {
+          frame();
+        }
+      });
     });
   },
 
@@ -334,42 +344,47 @@ var Render = {
       ctx.globalAlpha = 1;
     }
   },
-  minimap: function(ctx, positionX, positionY, mapWidth, mapHeight, front, back, currentX){
+  minimap: function(ctx, positionX, positionY, mapWidth, mapHeight, front, back, currentX, radius, widthLine){
 
     var frontLength = front.length;
     var backLength  = back.length;
 
-    var frontStep   = 100/frontLength;
-    var backStep    = 100/backLength;
+    var frontStep   = (mapHeight/2 - 5)/frontLength;
+    var backStep    = (mapHeight/2 - 5)/backLength;
 
-    var centerX = positionX + 75;
-    var centerY = positionY + 100;
+    var centerX = positionX + mapWidth/2;
+    var centerY = positionY + mapHeight/2;
 
+    
     ctx.fillStyle = 'rgb(50 50 50 / 30%)';
-    ctx.fillRect(width*0.8, height*0.1, mapWidth,mapHeight);  
+    ctx.fillRect(positionX, positionY, mapWidth,mapHeight);  
     
     var i;
-  
-    ctx.lineWidth = 15;
+
+    ctx.lineWidth = width/68;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = 'rgb(250 250 250 / 50%)';
+
     // render ahead
     ctx.beginPath();
-    ctx.moveTo(centerX+ currentX,centerY);
+    ctx.moveTo(centerX + currentX, centerY);
     for (i = 0; i < frontLength; i++){
-      ctx.lineTo(centerX+front[i], centerY - (i+1) * frontStep );
+      if (front[i] > (mapWidth/2-5) || front[i] < -(mapWidth/2-5)) break;
+      ctx.lineTo(centerX + front[i], centerY - (i+1) * frontStep );
     }
-    ctx.stroke();
-    
+
     //render back
-    ctx.beginPath();
-    ctx.moveTo(centerX+ currentX,centerY);
+    ctx.moveTo(centerX + currentX, centerY);
     for (i = 0; i < backLength; i++){
-      ctx.lineTo(centerX+back[i], centerY + (i+1) * backStep );
+      if (back[i] > (mapWidth/2-5) || back[i] < -(mapWidth/2-5)) break;
+      ctx.lineTo(centerX + back[i], centerY + (i+1) * backStep );
     }
     ctx.stroke();
     
+    // render player in mini map
     ctx.fillStyle = "red";
     ctx.beginPath();
-    ctx.arc(centerX, centerY , 5, 0, 2 * Math.PI);
+    ctx.arc(centerX, centerY , radius, 0, 2 * Math.PI);
     ctx.closePath();
     ctx.fill();
   },
