@@ -141,6 +141,7 @@ function render() {
         //render main Car
         Player.render(segment, playerSegment, playerPercent);
     }
+    Minimap.render(playerSegment, playerPercent);
 }
 
 

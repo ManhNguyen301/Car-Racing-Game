@@ -334,6 +334,46 @@ var Render = {
       ctx.globalAlpha = 1;
     }
   },
+  minimap: function(ctx, positionX, positionY, mapWidth, mapHeight, front, back, currentX){
+
+    var frontLength = front.length;
+    var backLength  = back.length;
+
+    var frontStep   = 100/frontLength;
+    var backStep    = 100/backLength;
+
+    var centerX = positionX + 75;
+    var centerY = positionY + 100;
+
+    ctx.fillStyle = 'rgb(50 50 50 / 30%)';
+    ctx.fillRect(width*0.8, height*0.1, mapWidth,mapHeight);  
+    
+    var i;
+  
+    ctx.lineWidth = 15;
+    // render ahead
+    ctx.beginPath();
+    ctx.moveTo(centerX+ currentX,centerY);
+    for (i = 0; i < frontLength; i++){
+      ctx.lineTo(centerX+front[i], centerY - (i+1) * frontStep );
+    }
+    ctx.stroke();
+    
+    //render back
+    ctx.beginPath();
+    ctx.moveTo(centerX+ currentX,centerY);
+    for (i = 0; i < backLength; i++){
+      ctx.lineTo(centerX+back[i], centerY + (i+1) * backStep );
+    }
+    ctx.stroke();
+    
+    ctx.fillStyle = "red";
+    ctx.beginPath();
+    ctx.arc(centerX, centerY , 5, 0, 2 * Math.PI);
+    ctx.closePath();
+    ctx.fill();
+  },
+
 
   rumbleWidth:     function(projectedRoadWidth, lanes) { return projectedRoadWidth/Math.max(6,  2*lanes); },
   laneMarkerWidth: function(projectedRoadWidth, lanes) { return projectedRoadWidth/Math.max(32, 8*lanes); }
