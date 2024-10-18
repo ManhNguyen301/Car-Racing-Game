@@ -104,9 +104,9 @@ var Game = {  // a modified version of the game loop from my previous boulderdas
     Game.loadImages(options.images, function(images) {
 
       options.ready(images); // tell caller to initialize itself because images are loaded and we're ready to rumble
-
-      Game.setKeyListener(options.keys);
-
+      Game.keyListener.keys = options.keys;
+      Game.keyListener.setKeyListener();
+      //Game.cancelKeyListener(options.keys);
       var canvas = options.canvas,    // canvas render target is provided by caller
           update = options.update,    // method to update game logic is provided by caller
           render = options.render,    // method to render the game is provided by caller
@@ -143,7 +143,6 @@ var Game = {  // a modified version of the game loop from my previous boulderdas
       }
 
       function countdown(timeLeft) {
-        const minutes = Math.floor(timeLeft / 60);
         const seconds = timeLeft % 60;
         countdownElement.innerHTML = "  "+`${seconds}`;
         if (timeLeft > 0) {
@@ -157,16 +156,18 @@ var Game = {  // a modified version of the game loop from my previous boulderdas
       
       // lets get this party started
       preStart();
-      countdown(5);
-
+      countdown(3);
+      
       
       Game.playMusic();
       Dom.on("canvas", "click", function(){
         paused = !paused;
         if (paused){
           cancelAnimationFrame(animationFrameId);
+          Game.keyListener.cancelKeyListener();
         }
         else {
+          Game.keyListener.setKeyListener();
           frame();
         }
       });
@@ -194,21 +195,33 @@ var Game = {  // a modified version of the game loop from my previous boulderdas
 
   //---------------------------------------------------------------------------
 
-  setKeyListener: function(keys) {
-    var onkey = function(keyCode, mode) {
+  keyListener:{
+    keys: null,
+    onkey : function(key, mode) {
       var n, k;
-      for(n = 0 ; n < keys.length ; n++) {
-        k = keys[n];
+      for(n = 0 ; n < Game.keyListener.keys.length ; n++) {
+        k = Game.keyListener.keys[n];
         k.mode = k.mode || 'up';
-        if ((k.key == keyCode) || (k.keys && (k.keys.indexOf(keyCode) >= 0))) {
+        if ((k.key == key) || (k.keys && (k.keys.indexOf(key) >= 0))) {
           if (k.mode == mode) {
             k.action.call();
           }
         }
       }
-    };
-    Dom.on(document, 'keydown', function(ev) { onkey(ev.keyCode, 'down'); } );
-    Dom.on(document, 'keyup',   function(ev) { onkey(ev.keyCode, 'up');   } );
+    },
+    handleDown :  function(ev) { Game.keyListener.onkey(ev.key, 'down'); },
+    handleUp : function(ev) { Game.keyListener.onkey(ev.key, 'up');   },
+    
+    setKeyListener: function() {
+      Dom.on(document, 'keydown',  Game.keyListener.handleDown);
+      Dom.on(document, 'keyup',    Game.keyListener.handleUp   );
+
+    },
+    cancelKeyListener: function() {
+      Dom.un(document, 'keydown', Game.keyListener.handleDown );
+      Dom.un(document, 'keyup',   Game.keyListener.handleUp );
+    },
+
   },
 
   //---------------------------------------------------------------------------
@@ -434,14 +447,14 @@ var ROAD = {
 
 
 var KEY = {
-  LEFT:  37,
-  UP:    38,
-  RIGHT: 39,
-  DOWN:  40,
-  A:     65,
-  D:     68,
-  S:     83,
-  W:     87
+  LEFT:  "ArrowLeft",
+  UP:    "ArrowUp",
+  RIGHT: "ArrowRight",
+  DOWN:  "ArrowDown",
+  A:     'a',
+  D:     'd',
+  S:     's',
+  W:     'w'
 };
 
 var COLORS = {
