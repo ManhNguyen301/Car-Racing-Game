@@ -14,10 +14,10 @@ var Background = {
       this.treeOffset = Util.increase(this.treeOffset, this.treeSpeed * playerSegment.curve * (position-startPosition)/segmentLength, 1);
     },
 
-    render: function(playerY){
-      Render.background(ctx, this.background, width, height, BACKGROUND.SKY,   this.skyOffset,  resolution * this.skySpeed  * playerY);
-      Render.background(ctx, this.background, width, height, BACKGROUND.HILLS, this.hillOffset, resolution * this.hillSpeed * playerY);
-      Render.background(ctx, this.background, width, height, BACKGROUND.TREES, this.treeOffset, resolution * this.treeSpeed * playerY);
+    render: function(){
+      Render.background(ctx, this.background, width, height, BACKGROUND.SKY,   this.skyOffset,  resolution * this.skySpeed  * Player.y);
+      Render.background(ctx, this.background, width, height, BACKGROUND.HILLS, this.hillOffset, resolution * this.hillSpeed * Player.y);
+      Render.background(ctx, this.background, width, height, BACKGROUND.TREES, this.treeOffset, resolution * this.treeSpeed * Player.y);
 
     }
 

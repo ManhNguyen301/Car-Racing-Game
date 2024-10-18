@@ -138,7 +138,7 @@ var Game = {  // a modified version of the game loop from my previous boulderdas
         render();
         requestAnimationFrame(preStart, canvas);
       }
-      function disapearCountDown(){
+      function disappearCountDown(){
         countdownElement.style.visibility = "hidden";
       }
 
@@ -150,15 +150,16 @@ var Game = {  // a modified version of the game loop from my previous boulderdas
             setTimeout(() => countdown(timeLeft - 1), 1000);
         } else {
             countdownElement.innerHTML = "Go!";
-            setTimeout(disapearCountDown, 500);
+            setTimeout(disappearCountDown, 500);
             frame(); // This function starts the race
         }
       }
-
+      
+      // lets get this party started
       preStart();
       countdown(5);
 
-      //frame(); // lets get this party started
+      
       Game.playMusic();
       Dom.on("canvas", "click", function(){
         paused = !paused;

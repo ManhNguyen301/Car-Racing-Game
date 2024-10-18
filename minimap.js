@@ -8,7 +8,7 @@ var Minimap = {
     currentX: 0,
     vision: 400,
     scale: 750 ,
-    widthLine: width/68 ,
+    widthLine: width/68,
     radius: width/205,
 
 

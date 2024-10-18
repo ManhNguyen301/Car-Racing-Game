@@ -28,7 +28,7 @@ var currentLapTime = 0;                       // current lap time
 var lastLapTime    = null;                    // last lap time
 
 
-var displaySetting = false;
+var displaySetting = false;                   // 
 var displayInstruction = false;
 
 var keyLeft        = false;
@@ -124,17 +124,17 @@ function render() {
     var basePercent   = Util.percentRemaining(Camera.position, segmentLength);
     var playerSegment = Road.findSegment(Camera.position+Player.z);
     var playerPercent = Util.percentRemaining(Camera.position+Player.z, segmentLength);
-    var playerY       = Util.interpolate(playerSegment.p1.world.y, playerSegment.p2.world.y, playerPercent);
+    Player.y       = Util.interpolate(playerSegment.p1.world.y, playerSegment.p2.world.y, playerPercent);
     
     ctx.clearRect(0, 0, width, height);  // clear everything on screen
 
     // render background
-    Background.render(playerY);
+    Background.render();
 
     var n, segment;
 
     // render Road
-    Road.render(playerY,baseSegment,basePercent);
+    Road.render(baseSegment,basePercent);
 
     for(n = (drawDistance-1) ; n > 0 ; n--) {
         segment = Road.segments[(baseSegment.index + n) % Road.segments.length];

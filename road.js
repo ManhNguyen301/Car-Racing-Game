@@ -5,7 +5,7 @@
 var Road = {
     segments:[],
 
-    render: function(playerY,baseSegment,basePercent){
+    render: function(baseSegment,basePercent){
       
       var x  = 0;
       var maxy = height;
@@ -18,8 +18,8 @@ var Road = {
         segment.fog    = Util.exponentialFog(n/drawDistance, fogDensity);
         segment.clip   = maxy;
 
-        Util.project(segment.p1, (Player.x * roadWidth) - x,      playerY + cameraHeight, Camera.position - (segment.looped ? trackLength : 0), cameraDepth, width, height, roadWidth);
-        Util.project(segment.p2, (Player.x * roadWidth) - x - dx, playerY + cameraHeight, Camera.position - (segment.looped ? trackLength : 0), cameraDepth, width, height, roadWidth);
+        Util.project(segment.p1, (Player.x * roadWidth) - x,      Player.y + cameraHeight, Camera.position - (segment.looped ? trackLength : 0), cameraDepth, width, height, roadWidth);
+        Util.project(segment.p2, (Player.x * roadWidth) - x - dx, Player.y + cameraHeight, Camera.position - (segment.looped ? trackLength : 0), cameraDepth, width, height, roadWidth);
 
         x  = x + dx;
         dx = dx + segment.curve;
