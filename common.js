@@ -117,7 +117,8 @@ var Game = {  // a modified version of the game loop from my previous boulderdas
           dt     = 0,
           gdt    = 0,
           paused = false,
-          animationFrameId;
+          animationFrameId,
+          countdownElement = Dom.get("countdown");
 
       function frame() {
         now = Util.timestamp();
@@ -132,8 +133,32 @@ var Game = {  // a modified version of the game loop from my previous boulderdas
         last = now;
         animationFrameId = requestAnimationFrame(frame, canvas);
       }
-      
-      frame(); // lets get this party started
+
+      function preStart(){
+        render();
+        requestAnimationFrame(preStart, canvas);
+      }
+      function disapearCountDown(){
+        countdownElement.style.visibility = "hidden";
+      }
+
+      function countdown(timeLeft) {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        countdownElement.innerHTML = "  "+`${seconds}`;
+        if (timeLeft > 0) {
+            setTimeout(() => countdown(timeLeft - 1), 1000);
+        } else {
+            countdownElement.innerHTML = "Go!";
+            setTimeout(disapearCountDown, 500);
+            frame(); // This function starts the race
+        }
+      }
+
+      preStart();
+      countdown(5);
+
+      //frame(); // lets get this party started
       Game.playMusic();
       Dom.on("canvas", "click", function(){
         paused = !paused;
