@@ -31,7 +31,7 @@ var lastLapTime    = null;                    // last lap time
 var displaySetting = false;                   // 
 var displayInstruction = false;
 var finish = false;
-var limitedTime = 10;
+var limitedTime = 180;
 
 var keyLeft        = false;
 var keyRight       = false;
@@ -101,7 +101,7 @@ function update(dt) {
     }
 
     updateHud('speed',            5 * Math.round(Player.speed/500));
-    updateHud('current_lap_time', formatTime(currentLapTime));
+    updateHud('current_lap_time', formatTime(limitedTime - currentLapTime));
 }
 
 
