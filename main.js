@@ -72,23 +72,23 @@ function update(dt) {
     // update HUD
     if (Camera.position > Player.z) {
         if (currentLapTime && (startPosition < Player.z)) {
-        lastLapTime    = currentLapTime;
-        currentLapTime = 0;
-        if (lastLapTime <= Util.toFloat(Dom.storage.fast_lap_time)) {
-            Dom.storage.fast_lap_time = lastLapTime;
-            updateHud('fast_lap_time', formatTime(lastLapTime));
-            Dom.addClassName('fast_lap_time', 'fastest');
-            Dom.addClassName('last_lap_time', 'fastest');
+            lastLapTime    = currentLapTime;
+            currentLapTime = 0;
+            if (lastLapTime <= Util.toFloat(Dom.storage.fast_lap_time)) {
+                Dom.storage.fast_lap_time = lastLapTime;
+                updateHud('fast_lap_time', formatTime(lastLapTime));
+                Dom.addClassName('fast_lap_time', 'fastest');
+                Dom.addClassName('last_lap_time', 'fastest');
+            }
+            else {
+                Dom.removeClassName('fast_lap_time', 'fastest');
+                Dom.removeClassName('last_lap_time', 'fastest');
+            }
+            updateHud('last_lap_time', formatTime(lastLapTime));
+            Dom.show('last_lap_time');
         }
         else {
-            Dom.removeClassName('fast_lap_time', 'fastest');
-            Dom.removeClassName('last_lap_time', 'fastest');
-        }
-        updateHud('last_lap_time', formatTime(lastLapTime));
-        Dom.show('last_lap_time');
-        }
-        else {
-        currentLapTime += dt;
+            currentLapTime += dt;
         }
     }
 

@@ -106,7 +106,6 @@ var Game = {  // a modified version of the game loop from my previous boulderdas
       options.ready(images); // tell caller to initialize itself because images are loaded and we're ready to rumble
       Game.keyListener.keys = options.keys;
       Game.keyListener.setKeyListener();
-      //Game.cancelKeyListener(options.keys);
       var canvas = options.canvas,    // canvas render target is provided by caller
           update = options.update,    // method to update game logic is provided by caller
           render = options.render,    // method to render the game is provided by caller
