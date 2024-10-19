@@ -157,7 +157,6 @@ var Game = {  // a modified version of the game loop from my previous boulderdas
       preStart();
       countdown(3);
       
-      
       Game.playMusic();
       Dom.on("canvas", "click", function(){
         paused = !paused;

@@ -51,7 +51,6 @@ var hud = {
 
 function update(dt) {
 
-    var sprite, spriteW;
     var playerSegment = Road.findSegment(Camera.position+Player.z);
     var playerW       = SPRITES.PLAYER_STRAIGHT.w * SPRITES.SCALE;
     var speedPercent  = Player.speed/maxSpeed;
@@ -65,7 +64,7 @@ function update(dt) {
     Camera.position = Util.increase(Camera.position, dt * Player.speed, trackLength);
     
     // update player's car coordinate when move by arrow key
-    Player.update(dt, dx, playerSegment, sprite, spriteW, playerW, speedPercent);
+    Player.update(dt, dx, playerSegment, playerW, speedPercent);
 
     //update background 
     Background.update(playerSegment, Camera.position, startPosition);

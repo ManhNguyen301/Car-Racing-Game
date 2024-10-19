@@ -21,14 +21,10 @@ var Minimap = {
         this.radius = width/205;
     },
     render: function(playerSegment, playerPercent){
-        var a =0;
-        
         var dx = (playerSegment.curve*playerPercent);
         var x = 0;
         var n , segment;
         var playerCurrentX = (Player.x * roadWidth)
-        
-        
 
         for (n=0; n<this.vision ; n++){
             segment  = Road.segments[(playerSegment.index + Road.segments.length + n) % Road.segments.length]; 

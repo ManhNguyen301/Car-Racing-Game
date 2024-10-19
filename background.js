@@ -20,5 +20,4 @@ var Background = {
       Render.background(ctx, this.background, width, height, BACKGROUND.TREES, this.treeOffset, resolution * this.treeSpeed * Player.y);
 
     }
-
   }

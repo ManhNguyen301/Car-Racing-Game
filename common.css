@@ -1,6 +1,6 @@
 
 /****************************************/
-/* common styles used for v1 through v4 */
+/* common styles */
 /****************************************/
 
 body           { font-family: Arial, Helvetica, sans-serif; }
@@ -24,7 +24,7 @@ body           { font-family: Arial, Helvetica, sans-serif; }
 
 
 /**************************************************/
-/* rudimentary heads up display (only used in v4) */
+/* rudimentary heads up display */
 /**************************************************/
 
 #hud                   { position: absolute; z-index: 1; width: 510px; padding: 5px 0; font-family: Verdana, Geneva, sans-serif; font-size: 0.8em; background-color: rgba(255,255,255,0); color: black; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }

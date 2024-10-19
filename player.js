@@ -22,7 +22,8 @@ var Player = {
         }
     },
 
-    update: function(dt,dx,playerSegment,sprite,spriteW,playerW,speedPercent) {
+    update: function(dt,dx,playerSegment, playerW,speedPercent) {
+        var sprite, spriteW;
         if (keyLeft)
             this.x = this.x - dx;
         else if (keyRight)
