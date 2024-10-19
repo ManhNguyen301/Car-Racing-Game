@@ -163,10 +163,8 @@ var Game = {  // a modified version of the game loop from my previous boulderdas
         paused = !paused;
         if (paused){
           cancelAnimationFrame(animationFrameId);
-          Game.keyListener.cancelKeyListener();
         }
         else {
-          Game.keyListener.setKeyListener();
           frame();
         }
       });
@@ -264,6 +262,18 @@ var Game = {  // a modified version of the game loop from my previous boulderdas
       Dom.storage.muted = music.muted = !music.muted;
       Dom.toggleClassName('mute', 'on', music.muted);
     });
+  },
+  handleWin: function(){
+    Dom.get("win_lose_text").innerHTML = "You Win";
+    Dom.get("win_lose_board").style.visibility = "visible";
+    Game.keyListener.cancelKeyListener();
+    finish = true;
+  },
+  handleLose:function(){
+    Dom.get("win_lose_text").innerHTML = "You Lose";
+    Dom.get("win_lose_board").style.visibility = "visible";
+    Game.keyListener.cancelKeyListener();
+    finish = true;
   }
 
 }

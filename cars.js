@@ -1,7 +1,7 @@
 var Cars = {
 
     cars: [], 
-    totalCars: 200,   // total number of cars on the road
+    totalCars: 20,   // total number of cars on the road
 
     render: function(segment){
         var i, car, sprite, spriteScale, spriteX, spriteY;

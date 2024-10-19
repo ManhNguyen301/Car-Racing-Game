@@ -30,6 +30,8 @@ var lastLapTime    = null;                    // last lap time
 
 var displaySetting = false;                   // 
 var displayInstruction = false;
+var finish = false;
+var limitedTime = 10;
 
 var keyLeft        = false;
 var keyRight       = false;
@@ -70,7 +72,8 @@ function update(dt) {
     
     Minimap.update();
     // update HUD
-    if (Camera.position > Player.z) {
+    if (Camera.position > Player.z && !finish) {
+        
         if (currentLapTime && (startPosition < Player.z)) {
             lastLapTime    = currentLapTime;
             currentLapTime = 0;
@@ -86,9 +89,14 @@ function update(dt) {
             }
             updateHud('last_lap_time', formatTime(lastLapTime));
             Dom.show('last_lap_time');
+
+            Game.handleWin();
         }
         else {
             currentLapTime += dt;
+        }
+        if (currentLapTime > limitedTime){
+            Game.handleLose();
         }
     }
 
@@ -200,6 +208,7 @@ function reset(options) {
 //=========================================================================
 // TWEAK UI HANDLERS
 //=========================================================================
+Dom.on('restart','click',function(){location.reload();});
 
 Dom.on('fullscreen','click', function(){
     var racer = Dom.get("racer");
