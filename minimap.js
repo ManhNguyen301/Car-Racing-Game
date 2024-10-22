@@ -40,7 +40,6 @@ var Minimap = {
             dx = dx + segment.curve;
             x = x + dx; 
         }
-
         Render.minimap(ctx, this.x, this.y, this.width, this.height, this.front, this.back, this.currentX,this.radius,this.widthLine); 
         
     },

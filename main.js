@@ -1,5 +1,5 @@
 
-var fps            = 60;                      // how many 'update' frames per second
+var fps            = 80;                      // how many 'update' frames per second
 var step           = 1/fps;                   // how long is each frame (in seconds)
 var width          = 1024;                    // logical canvas width
 var height         = 768;                     // logical canvas height
@@ -31,7 +31,7 @@ var lastLapTime    = null;                    // last lap time
 var displaySetting = false;                   // 
 var displayInstruction = false;
 var finish = false;
-var limitedTime = 180;
+var limitedTime = 120;
 
 var keyLeft        = false;
 var keyRight       = false;
