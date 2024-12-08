@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Enter Nickname</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="nickname-container">
@@ -11,9 +12,12 @@
             <label for="nickname">Nickname:</label>
             <input type="text" id="nickname" name="nickname" required>
             <br>
+            <span id="error-message" class="error"></span>
+            <br>
             <button type="submit">Start Game</button>
         </form>
     </div>
     <script src="login.js"></script>
+    
 </body>
 </html>
